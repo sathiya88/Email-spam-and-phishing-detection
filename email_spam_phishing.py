@@ -1,8 +1,9 @@
 import streamlit as st
 from sklearn.base import BaseEstimator, TransformerMixin
-from scipy.sparse import csr_matrix
+from scipy.sparse import hstack, csr_matrix
 import re
 import joblib
+
 
 
 # Define your custom transformer class here
@@ -42,6 +43,7 @@ if st.button("Predict"):
         X_combined = hstack([X_tfidf, X_additional])
         prediction = model.predict(X_combined)[0]
         st.success(f"Prediction: {label_map[prediction]}")
+
 
 
 
