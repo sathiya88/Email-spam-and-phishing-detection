@@ -1,7 +1,7 @@
 import streamlit as st
 import joblib
 
-# Load saved model and TF-IDF vectorizer only
+# Load saved model and TF-IDF vectorizer
 model = joblib.load('model_spam_phishing.pkl')
 tfidf_vectorizer = joblib.load('tfidf_spam_phishing.pkl')
 
@@ -16,9 +16,6 @@ if st.button("Predict"):
         st.warning("Please enter email content to predict.")
     else:
         email_text_processed = email_text.lower().strip()
-        
-        # Use only TF-IDF features for prediction
         X_tfidf = tfidf_vectorizer.transform([email_text_processed])
-        
         prediction = model.predict(X_tfidf)[0]
         st.success(f"Prediction: {label_map[prediction]}")
